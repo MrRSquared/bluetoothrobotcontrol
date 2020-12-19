@@ -9,12 +9,13 @@ bluetooth.onUartDataReceived(bluetooth.uartReadUntil(serial.delimiters(Delimiter
     } else if (Rover.checkOrder(Orders.ORDER_RGB)) {
         Rover.setRGBLED(Rover.getParameter(0), Rover.rgb(Rover.getParameter(1), Rover.getParameter(2), Rover.getParameter(3)))
     } else if (Rover.checkOrder(Orders.BUZZER)) {
+        // We are using this variable to create a robot mode (standby, tele, auto)
         if (mode < 4) {
             mode = mode + 1
         } else {
             mode = 0
-            serial.writeLine("" + (mode))
         }
+        serial.writeLine("" + (mode))
     }
 })
 bluetooth.onBluetoothConnected(function () {
